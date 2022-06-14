@@ -12,22 +12,22 @@ RUN apt-get update && apt-get install -y \
 ADD https://api.github.com/repos/GReX-Telescope/psrdada/git/refs/heads/master psrdada-version.json
 RUN git clone https://github.com/GReX-Telescope/psrdada /tmp/psrdada; \
     cd /tmp/psrdada;                                                  \
-    cmake .;                                                          \
-    make;                                                             \
+    cmake -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE .;                 \
+    make -j${nproc};                                                  \
     make install;
 # Clone and build dedisp
 ADD https://api.github.com/repos/GReX-Telescope/dedisp/git/refs/heads/master dedisp-version.json
 RUN git clone https://github.com/GReX-Telescope/dedisp /tmp/dedisp; \
     cd /tmp/dedisp;                                                 \
-    cmake .;                                                        \
-    make;                                                           \
+    cmake -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE .;               \
+    make -j${nproc};                                                \
     make install;
 # Clone and build heimdall
 ADD https://api.github.com/repos/GReX-Telescope/heimdall-astro/git/refs/heads/master heimdall-version.json
 RUN git clone https://github.com/GReX-Telescope/heimdall-astro /tmp/heimdall; \
     cd /tmp/heimdall;                                                         \
-    cmake .;                                                                  \
-    make;                                                                     \
+    cmake -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE .;                         \
+    make -j${nproc};                                                          \
     make install;
 # Cleanup build directories
 RUN rm -rd /tmp
